@@ -1,0 +1,24 @@
+{
+  "name": "codex-overlay",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "studio": "remotion studio src/index.ts",
+    "still": "remotion still src/index.ts CodexOverlay4x3 --scale=0.25 --frame=1800 renders/check-60s.png",
+    "preview": "remotion render src/index.ts CodexOverlay4x3 renders/codex-overlay-preview.mp4 --codec=h264 --crf=23 --scale=0.25",
+    "render:mov": "remotion render src/index.ts CodexOverlay4x3 renders/codex-overlay-alpha.mov --image-format=png --pixel-format=yuva444p10le --codec=prores --prores-profile=4444",
+    "render:mov:silent": "remotion render src/index.ts CodexOverlay4x3Silent renders/codex-overlay-alpha-video.mov --image-format=png --pixel-format=yuva444p10le --codec=prores --prores-profile=4444",
+    "render:webm": "remotion render src/index.ts CodexOverlay4x3 renders/codex-overlay-alpha.webm --image-format=png --pixel-format=yuva420p --codec=vp9"
+  },
+  "dependencies": {
+    "@remotion/media": "^4.0.398",
+    "remotion": "^4.0.398",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@remotion/cli": "^4.0.398",
+    "@types/react": "^19.0.0",
+    "typescript": "^5.8.0"
+  }
+}

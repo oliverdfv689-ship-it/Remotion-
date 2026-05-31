@@ -1,0 +1,9 @@
+[
+  {
+    "label": "Example aligned reveal",
+    "spoken_at": 10.0,
+    "visual_at": 9.7,
+    "tolerance": 0.8,
+    "scene": "example"
+  }
+]

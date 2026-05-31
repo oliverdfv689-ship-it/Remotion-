@@ -1,0 +1,4 @@
+interface:
+  display_name: "口播视频透明动效包装"
+  short_description: "根据 SRT、录屏和参考视频生成剪映可用的透明 Remotion 动效层"
+  default_prompt: "使用 $generate-talking-head-remotion-overlay 分析我的 SRT、录屏素材和参考视频，先生成关键帧与低清预览，确认后导出剪映可直接叠加的透明 MOV。"

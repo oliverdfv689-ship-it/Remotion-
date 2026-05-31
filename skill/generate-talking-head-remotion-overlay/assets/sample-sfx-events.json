@@ -1,0 +1,12 @@
+{
+  "duration": 8,
+  "sampleRate": 48000,
+  "events": [
+    {"time": 0.2, "type": "impact", "gain": 0.8},
+    {"time": 1.4, "type": "clicks", "gain": 0.5},
+    {"time": 2.8, "type": "scan", "gain": 0.5},
+    {"time": 4.1, "type": "warning", "gain": 0.5},
+    {"time": 5.2, "type": "confirm", "gain": 0.55},
+    {"time": 6.3, "type": "count", "gain": 0.6}
+  ]
+}
