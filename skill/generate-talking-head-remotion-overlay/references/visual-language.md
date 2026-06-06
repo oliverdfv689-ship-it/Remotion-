@@ -2,98 +2,143 @@
 
 ## Core Look
 
-Build a minimal cinematic technology interface:
+Build a high-impact Chinese talking-head overlay:
 
-- transparent background
-- black or charcoal glass panels
-- high-contrast white text
-- small amounts of orange, cyan, green, red, blue, and purple by meaning
-- restrained glow
-- thin borders
-- no persistent grid
-- no visible progress bar
-- no talking-head subtitles by default
+- transparent background for final alpha delivery
+- cinematic dark glass panels
+- high-contrast white Chinese type
+- semantic colors: blue/cyan for technology, orange for money/opportunity, green for action/service/success, red for risk/cold-water/warning
+- restrained glow with strong readable edges
+- no persistent grid, progress bar, or subtitle layer
+- no decorative lines that do not carry information
 
 ## Typography
 
 Use a layered title package:
 
 1. English stage header with wide tracking
-2. Chinese subtitle
-3. numbered circular badge
-4. semantic icon
-5. large bold Chinese hero title
-6. supporting line
+2. Chinese subtitle line
+3. semantic icon badge
+4. large bold Chinese hero title
+5. short support line or grouped labels
+
+Hero titles should be consistent across the video:
+
+- similar left-side anchor unless a special center impact is needed
+- two-line Chinese layout when needed
+- enough line gap so strokes do not touch
+- short underline close to title width, not stretched across the frame
+- readable hold state after the entrance
 
 Animate hero text with:
 
-- word or character stagger
-- short horizontal motion
+- word or phrase stagger
+- scan reveal
+- short kinetic push
 - spring overshoot
-- reveal mask or scan pass
-- controlled glow
-- readable hold state
+- glow pulse
+- color switch by meaning
 
-Do not fade titles to near-black after the entrance.
+Do not fade hero titles to near-black after entrance.
 
 ## Layout
 
-Reserve the visual center for the speaker. Place routine prompts around the left and right middle zones.
+The speaker remains the emotional center. Routine information should support, not fight, the speaker.
 
-Allow center coverage only when:
+- Left side: primary title, grouped labels, key numbers, action advice.
+- Right side: logos, evidence screenshots, charts, real context images, semantic image panels.
+- Center: only brief impact titles, translucent flows, or large evidence/demo windows.
+- Bottom: avoid covering platform subtitles if the user's base video already has them.
 
-- a key conclusion briefly hits
-- a process diagram is translucent
-- a demo window is the subject
+If a right-side evidence/image panel is active, reduce duplicate text cards. If no evidence is active, right side may show a logo, chart, or concrete scene image.
 
-Keep title and side labels visually close enough to read as one group. Avoid large dead gaps. Prevent side labels from covering title subtitles.
+## Labels
 
-## Side Labels
+Side labels must be phone-readable and semantically grouped:
 
-- use consistent dimensions
-- use large phone-readable type
-- keep one semantic group together
-- use a colored left rule
-- pair labels with a clear icon
-- avoid microtext and excessive English headers
+- use one category per group
+- avoid splitting one group across both sides
+- stagger entry by spoken rhythm
+- keep visible long enough to read
+- use compact width that fits content; do not make every label full-width
+- prevent truncation
+- vary icon and label type by meaning
 
-## Icons
+Good labels are not decoration. They should help the viewer understand the current sentence.
 
-Use real assets for existing brands:
+## Icons and Logos
 
-- Codex / OpenAI
-- Remotion
-- Cursor
-- Claude / Anthropic
+Use real original-color logos when available:
 
-Use simulated line icons for abstract actions:
+- OpenAI
+- NVIDIA
+- Sora
+- Tencent
+- Alibaba
+- ByteDance / Doubao
+- ROS
+- Gazebo
+- Isaac Sim
+- other named brands or platforms
 
-- write code
-- split scenes
-- generate assets
-- edit package
-- warning
-- repair
-- confirm
+Use semantic icons for abstract ideas:
 
-Important brand cards may use a short lock-on animation with icon scale, slight rotation, scan line, and glow.
+- alarm/warning for risk
+- money/salary for income
+- server/electricity for cost
+- factory/robot for hardware
+- wrench/tool for repair
+- checklist for action steps
+- comment/input/send for discussion CTA
 
-## Charts and Flows
+Do not use the same generic icon for unrelated labels. A small icon that does not communicate meaning should be replaced or removed.
 
-Use charts only for claims with numbers. Keep cards within the same semantic context. Do not mix later conclusions into an earlier data scene.
+## Right-Side Visuals
 
-Use flow diagrams for stepwise narration. Light nodes sequentially. Keep connections translucent over the speaker if crossing the center.
+Right-side content should add new information:
 
-## Demo Windows
+- official screenshot or evidence first
+- real logo second
+- real-world image third
+- generated/semantic image only when no real source exists or the moment is conceptual
 
-Treat recordings as case-study windows:
+Examples:
 
-- enter with a scan or slide
-- use a clear border and glow
-- enlarge the visible UI
-- crop to important areas
-- add callouts
-- switch 2-3 camera scales inside a recording
-- exit cleanly
+- shared bike / new-energy bubble: use real or credible scene image only when the narration mentions it.
+- GPU/electricity/cost: use data-center/server/electricity growth chart.
+- Doubao call volume: use Doubao/ByteDance logo plus rising traffic chart.
+- clinic/small company: use real office/front-desk/service scene.
+- robot repair/debugging: use factory or robot-maintenance image.
+- AI customer acquisition/customer service: use call-center/operator/customer-service scene.
 
-Avoid tiny unreadable recordings.
+If evidence screenshots are used, animate as full image -> key area zoom -> highlight lock -> exit. Do not keep an evidence window on screen after the spoken point has moved on.
+
+## Charts and Numbers
+
+Numbers need motion:
+
+- roll or count up
+- punch scale at the spoken number
+- small bar/arrow/sparkline growth
+- color by meaning
+
+Separate the number from the title enough that the viewer can parse both. Keep units clear: `30-50万`, `1万亿`, `$295K-$380K`, `220万`, `5.56亿`.
+
+## Flows
+
+Use flows only when process narration needs them. Give flows lower priority than clear title, labels, evidence, and real images.
+
+Flow boxes should fit their text, not stretch across the screen. Nodes should reveal sequentially with enough spacing. Avoid covering labels or titles.
+
+## SFX
+
+SFX should reinforce semantic motion:
+
+- warning ping for risk
+- low hit for major title
+- scan/camera lock for evidence
+- blip/roll for numbers
+- tick for label entry
+- confirm chime for completed action
+
+Do not repeat one sound for every event.

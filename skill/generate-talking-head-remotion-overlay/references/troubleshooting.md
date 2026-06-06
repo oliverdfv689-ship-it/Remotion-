@@ -1,43 +1,77 @@
 # Troubleshooting
 
-## Transparent MOV Is Too Large
+## Style Feels Worse Than Reference
 
-Use 1440x1080 for 4:3 delivery instead of 3840x2880. Keep ProRes 4444 Alpha for Jianying stability. Expect several GB for a multi-minute overlay.
+Do not add random elements. Rewatch or re-extract frames from the reference and compare:
 
-## MP4 Transparency Does Not Work
+- title size and position
+- title hold duration
+- side-label grouping
+- icon usefulness
+- evidence/image timing
+- amount of empty space
+- speed of transitions
 
-H.264 MP4 is a preview format, not the primary transparent delivery format. Use ProRes 4444 Alpha MOV.
+Often the fix is better semantic timing, not more decoration.
 
-## Chroma Key Is Unstable
+## Timing Does Not Match SRT
 
-Avoid green-screen MP4 as the primary method, especially when the talking-head background is gray or contains green-like tones.
+Do not stretch one scene to cover a long paragraph. Split it into smaller semantic scenes and stagger elements by spoken clauses.
 
-## Demo Clips Are Unreadable
+If many elements appear at once, use:
 
-Increase the demo window, crop to the target region, and use 2-3 zoom states with callouts.
+- title first
+- label 1 after first clause
+- label 2 after second clause
+- evidence after the source phrase
+- right image only if no evidence is active
 
-## Overlay Looks Busy
+## Overlap and Clutter
 
-Remove grids, progress bars, decorative lines, repeated scans, and microtext. Group related labels and keep fewer, larger elements.
+Common causes:
 
-## Labels Cover Titles
+- flow has too high priority
+- label group is too wide
+- right-side text duplicates left-side labels
+- evidence window starts before previous labels exit
+- title line height is too tight
 
-Move the title upward, move grouped labels closer without crossing the subtitle, remove decorative lines, and render a still before a full preview.
+Fix by simplifying the active visual role. One strong idea beats five competing panels.
 
-## Timing Feels Wrong
+## Icons Look Meaningless
 
-Build a key-moment JSON file and run `timeline_audit.py`. Split setup and conclusion scenes.
+Replace generic icons with:
 
-## Recording Audio Leaks Into Final MOV
+- real brand logo if named
+- semantic icon if abstract
+- real/context image if the concept is concrete
+- no icon if it does not help
 
-Render the visual composition and mux with FFmpeg using explicit mapping:
+Warning icons should look like warnings. Service icons should look like service, repair, tools, or customer support. Money icons should look like money or growth.
+
+## Evidence or Images Are Blurry
+
+Prefer original screenshots and high-resolution images. For source screenshots, crop to the relevant area after showing the full image.
+
+Avoid scaling a tiny screenshot to fill a large panel without a key-area zoom.
+
+## Transparent MOV Is Huge
+
+ProRes 4444 alpha files are large. If final alpha is required:
+
+- render directly to the final large drive
+- set `TMP` and `TEMP` to that drive
+- reduce resolution only if the user accepts it
+- keep a low-res MP4 preview for review
+
+If rendering fails with `No space left on device`, delete failed local partial MOVs only after confirming they are not final deliverables.
+
+## ffprobe Not Found
+
+Use Remotion bundled ffprobe:
 
 ```powershell
--map 0:v:0 -map 1:a:0 -c:v copy -c:a pcm_s16le
+Get-ChildItem -LiteralPath node_modules -Recurse -Filter ffprobe.exe
 ```
 
-This excludes accidental audio streams from recording clips.
-
-## Browser or Studio Preview Fails
-
-Use Remotion CLI still renders and lightweight MP4 previews. Do not block the project on Studio UI availability.
+Then run the found executable against the final MOV.

@@ -2,101 +2,128 @@
 
 ## 1. Collect Inputs
 
-Require:
+Required:
 
+- talking-head video or at least a representative frame
 - SRT transcript
-- recording clips
-- reference video, screenshots, or style link
-- output directory
+- source screenshots, recordings, or evidence images
+- output aspect ratio, resolution, and editor
 
-Prefer:
+Recommended:
 
-- talking-head video or a representative frame
-- expected aspect ratio
-- editor name, usually Jianying Pro / CapCut desktop
+- reference videos or screenshots
+- target platform and audience
+- known final output directory
+- whether SFX should be embedded and/or separated
+
+If aspect ratio is unclear, inspect the source video before planning. Never assume the previous project's ratio.
 
 ## 2. Analyze References First
 
-Do not code immediately after receiving a style link. Inspect real reference frames or videos and summarize:
+Do not code immediately after receiving a style link or reference video. Extract:
 
-- where large titles appear
-- how titles animate
-- where side labels sit
+- large-title positions and hold times
+- title entrance and exit rhythm
+- side-label grouping and reading duration
+- icon size, meaning, and brand treatment
+- right-side image/evidence behavior
+- chart and number animation treatment
 - when center coverage is acceptable
-- which icons are real brands
-- how recordings are enlarged and annotated
-- how charts and flows appear
-- which visual clutter should be avoided
+- what visual clutter is absent
 
-Generate a short visual-language proposal and 5-8 stills before a full render.
+Summarize the gap between the current project and references before editing. The goal is not "more elements"; it is better semantic motion.
 
 ## 3. Parse and Plan the Timeline
 
 Run:
 
 ```powershell
-python scripts/srt_to_json.py input.srt --out captions.json --limit 140
+python scripts/srt_to_json.py input.srt --out captions.json
 ```
 
-Create:
+Create or update:
 
-- `scenes.json`: semantic segments with start and end times
-- `moments.json`: important spoken moments and intended visual reveal times
-- `sfx-events.json`: restrained audio cues
+- `scenes.json`: fine-grained semantic scenes
+- `moments.json`: spoken key moments and visual reveal times
+- `assets-map.json`: which real logo/image/evidence belongs to each scene
+- `sfx-events.json`: impact, scan, warning, tick, confirm events
 
-Split long chapters into lead-in and conclusion scenes. Do not reveal the conclusion at the start of a long chapter.
+Split long narration into small ideas. Example: `OpenAI hiring` -> `job exists` -> `salary range` -> `original post` should not be one static 30-second title.
 
-## 4. Match Recordings by Content
+## 4. Choose the Visual Layer for Each Spoken Idea
 
-Probe each recording with `probe_media.ps1`. Inspect frames or play clips. Match by visible content:
+For each scene, choose one main communication role:
+
+- Big title: conclusion, risk, warning, opportunity, action advice.
+- Labels: supporting points that should stay readable for several seconds.
+- Evidence window: proof screenshot or source material.
+- Right-side image: real-world context, concrete scene, or brand logo when no evidence screenshot is active.
+- Chart/number: salary, cost, loss, growth, demand, call volume.
+- Flow/checklist: process, path, steps, action plan.
+
+Avoid showing several full-strength roles at once. If evidence is active, reduce or hide right-side decorative content.
+
+## 5. Match Recordings and Images by Meaning
+
+Probe media with `probe_media.ps1`. Inspect frames or play clips.
+
+Match by visible content and spoken meaning:
 
 - prompt input
 - project generation
 - missing-audio repair
 - preview playback
-- webpage or product state
+- official evidence screenshot
+- company logo or product scene
+- factory/repair/service scene
 
-Trim misleading portions. Do not rely on filenames or numeric order.
+Do not rely on filenames or numeric order.
 
-## 5. Build from the Template
+## 6. Build from the Template
 
-Copy `assets/remotion-template` into a working directory. Replace:
+Copy `assets/remotion-template` into a working directory or reuse the current Remotion project. Replace:
 
 - scene data
-- copy
-- SRT captions JSON
-- demo assets
+- text
+- SRT JSON
+- image and video assets
+- logo assets
 - composition duration
+- aspect ratio and dimensions
 - SFX events
 
-Keep routine overlays near the sides. Use the center only for brief hero-title impact, translucent flows, or large demo windows.
+Keep the component system modular: stage header, big title, semantic icon, grouped labels, evidence window, right context image, chart, flow, demo window.
 
-## 6. Render Stills
+## 7. Render Stills
 
-Render representative frames:
+Render 8-15 representative stills when the video is long:
 
 - opening
-- first capability section
-- manual workflow
-- demo clip
-- error repair
-- chart
-- tool comparison
-- finale
+- first brand/evidence moment
+- first numeric moment
+- reference-like title moment
+- each major section
+- risk/cold-water moment
+- opportunity/action moment
+- final CTA
 
-Inspect readability at reduced size. A label that is only readable when zoomed in is too small.
+Inspect every still at reduced size. If phone viewers cannot read it quickly, simplify or enlarge.
 
-## 7. Render Preview
+## 8. Render Preview
 
-Render a lightweight review MP4:
+Render a lightweight MP4 preview. For long videos, render segment previews around problem areas first.
 
-```powershell
-npx remotion render src/index.ts CodexOverlay4x3 renders/preview.mp4 --codec=h264 --crf=22 --scale=0.25
-```
+Review:
 
-Ask the user to review timing, overlap, density, and recording legibility.
+- Does the visual appear when the line is spoken?
+- Does anything reveal a future conclusion early?
+- Do labels stay long enough?
+- Are transitions too fast?
+- Does a right-side image duplicate left-side text?
+- Are there quiet gaps with no useful prompt?
+- Are there overlaps or truncated labels?
 
-## 8. Audit and Fix
+## 9. Audit and Fix
 
 Run:
 
@@ -104,10 +131,28 @@ Run:
 python scripts/timeline_audit.py moments.json
 ```
 
-Fix all key moments beyond tolerance. Check for unrelated cards that spoil later conclusions.
+Then manually inspect the actual preview. Fix:
 
-## 9. Deliver Alpha MOV
+- early spoilers
+- late evidence
+- overlong brand logos
+- all-at-once card bursts
+- fast jumps
+- title/label overlap
+- image clarity
+- meaningless icons
+- right-side content covering the speaker without need
 
-Use `render_delivery.ps1` to render ProRes 4444 Alpha and mux the SFX WAV. Validate with `verify_delivery.ps1`.
+## 10. Deliver Alpha MOV
 
-Delete or archive intermediate MOV files after final confirmation. Retain the final MOV, preview MP4, SFX WAV, scene plan, and audit report.
+Render ProRes 4444 Alpha only after preview approval. Validate with `verify_delivery.ps1` or `ffprobe`.
+
+If the MOV is huge:
+
+- keep ProRes 4444 for native alpha when the editor supports it
+- render directly to the final output drive
+- set `TMP` and `TEMP` to that drive
+- reduce resolution only if the user accepts it
+- keep a low-res MP4 preview for review
+
+Retain the final MOV, preview MP4, SFX WAV, scene plan, and audit report. Archive or delete intermediate failed renders.

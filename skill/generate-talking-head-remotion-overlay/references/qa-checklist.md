@@ -1,38 +1,41 @@
 # QA Checklist
 
-## Still Review
+## Still Preview
 
-- Render 5-8 key stills before any full preview.
-- Confirm title readability at phone scale.
-- Confirm label groups are not scattered.
-- Confirm no title or subtitle is covered by labels.
-- Confirm demo windows show readable content.
-- Confirm brand icons are real when available.
-- Confirm routine elements preserve a center talking-head area.
+- Aspect ratio and resolution match the request.
+- No visible subtitles from the overlay unless requested.
+- No grid, progress bar, or editor/player chrome.
+- Big titles are consistent in position and line spacing.
+- Underlines are close to title width, not stretched across the whole screen.
+- Labels do not overlap titles, subtitles, or each other.
+- Labels are grouped by one semantic category.
+- Labels are readable at phone size.
+- Icons are meaningful; no repeated generic icons for unrelated ideas.
+- Real logos are original-color and large enough to recognize.
+- Right-side content adds information and does not duplicate left-side text.
+- Evidence images are clear enough to read key areas.
+- Flow boxes fit text and do not cover important labels.
 
-## Preview Review
+## Preview MP4
 
-- Watch the full MP4 preview.
-- Compare important visuals against SRT.
-- Confirm no grids, progress bars, or visible talking-head subtitles.
-- Confirm SFX vary by meaning and do not fire constantly.
-- Confirm no future conclusion appears in an earlier scene.
-- Confirm labels are large enough for mobile viewing.
+- Visual events match SRT semantics within tolerance.
+- No title lasts across unrelated narration.
+- No future conclusion appears early.
+- Labels enter staggered and stay long enough.
+- Evidence windows appear only when the source is discussed.
+- Right-side images/logos do not stay past their spoken scope.
+- Transitions are not too fast in the first minute.
+- SFX varies by meaning and does not overwhelm speech.
 
-## Delivery Review
+## Final MOV
 
-- Render 1440x1080 at 30 fps unless the user requests another 4:3 size.
-- Use ProRes 4444 Alpha MOV.
-- Mux only the transparent video stream and the dedicated SFX stem.
-- Verify Alpha pixel format with FFprobe.
-- Verify PCM stereo audio at 48 kHz.
-- Verify duration matches the SRT-driven composition.
-- Retain a low-resolution preview MP4.
+Use `ffprobe` or Remotion bundled `ffprobe.exe` to verify:
 
-## Jianying Pro
+- width and height
+- duration
+- video codec is ProRes or other requested alpha codec
+- pixel format contains alpha, such as `yuva444p12le`
+- audio stream exists if embedded SFX was requested
+- file is written to the expected final output directory
 
-- Import talking-head video.
-- Place it on the lower track.
-- Place Alpha MOV on the upper track from 00:00.
-- Do not enable chroma key.
-- Review edge quality, visibility, and SFX level.
+For this local environment, user-facing final deliverables should go to `D:\CodexOverlayOutput` unless the user says otherwise.

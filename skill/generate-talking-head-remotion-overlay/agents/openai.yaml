@@ -1,4 +1,4 @@
-interface:
-  display_name: "�ڲ���Ƶ͸����Ч��װ"
-  short_description: "���� SRT��¼���Ͳο���Ƶ���ɼ�ӳ���õ�͸�� Remotion ��Ч��"
-  default_prompt: "ʹ�� $generate-talking-head-remotion-overlay �����ҵ� SRT��¼���زĺͲο���Ƶ�������ɹؼ�֡�����Ԥ����ȷ�Ϻ󵼳���ӳ��ֱ�ӵ��ӵ�͸�� MOV��"
+﻿interface:
+  display_name: "口播视频透明动效导演"
+  short_description: "根据 SRT、口播视频、证据素材和参考视频生成剪映可用的透明 Remotion 动效层"
+  default_prompt: "使用 $generate-talking-head-remotion-overlay 分析我的口播视频、SRT、素材和参考视频，先拆细时间轴并生成关键帧/分段预览，确认后导出剪映可直接叠加的透明 MOV。"
